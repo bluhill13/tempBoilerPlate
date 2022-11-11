@@ -5,10 +5,20 @@ import { RootState } from '../store';
 
 
 export interface IAuthentication {
-    isProcessingRequest: boolean;
+    data: object;
+    loading: boolean;
+    fetched: boolean;
+    loggedIn: boolean;
+    error: string | null;
     accessToken?: string;
   }
-  const initialState: IAuthentication = { isProcessingRequest: false };
+  const initialState: IAuthentication = { 
+    data: {},
+    loading: false,
+    fetched: false,
+    loggedIn: false,
+    error: null
+  };
 
 
   export const authenticationSlice = createSlice({
@@ -18,19 +28,41 @@ export interface IAuthentication {
       start: (state) => {
         return {
           ...state,
-          isProcessingRequest: true,
+          data: {},
+          loading: true,
+          fetched: false,
+          loggedin: false,
+          error: null
         };
       },
       success: (state, action: PayloadAction<any>) => {
         return {
           ...state,
-          isProcessingRequest: false,
+          data: {...action.payload},
+          loading: false,
+          fetched: true,
+          loggedIn: true,
+          error: null
+        };
+      },
+      logout: (state, action: PayloadAction<any>) => {
+        return {
+          ...state,
+          data: {},
+          loading: false,
+          fetched: false,
+          loggedIn: false,
+          error: null
         };
       },
       error: (state, action: PayloadAction<string>) => {
         return {
           ...state,
-          isProcessingRequest: false,
+          data: {},
+          fetched: false,
+          loggedin: false,
+          loading: true,
+          error: action.payload
         };
       },
     },
