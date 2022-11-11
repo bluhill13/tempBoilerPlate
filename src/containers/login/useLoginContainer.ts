@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { dispatchLoginUser } from '../../redux/login/loginSlicer';
 import { messages } from './loginContainer.i18n';
 
 export const useLoginContainer = (locale: 'nb' | 'en') => {
