@@ -8,7 +8,7 @@ import MainLayout from './layout/MainLayout';
 import './App.css';
 
 function App() {
-	const [locale] = useState('nb');
+	const [locale] = useState<'nb' | 'en'>('nb');
 
 	useEffect(() => {
 		document.title = 'Adecco Client Portal';

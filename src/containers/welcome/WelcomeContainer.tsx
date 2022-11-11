@@ -1,18 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useMemo, useEffect } from 'react';
 import LocaleContext from '../../context/LocaleContext';
 import { useWelcomeContainer } from './useWelcomeContainer';
 
-export const WelcomeContainer = (props) => {
+export const WelcomeContainer = () => {
+	const locale = React.useContext(LocaleContext);
 
-    const locale = React.useContext(LocaleContext);
+	const { localeMessages, showToasts } = useWelcomeContainer(locale);
 
-    const { localeMessages, showToasts } = useWelcomeContainer(locale)
-
-    /*
-
-    
-
+	/*
     const crState = useSelector(state => state.sakslisteHeader)
     const dispatch = useDispatch()  
 
@@ -21,10 +17,5 @@ export const WelcomeContainer = (props) => {
     }, [])
     */
 
-    return (
-        <>   
-            {localeMessages['Velkommen']}
-        </>
-        
-    )
-}
+	return <>{localeMessages['Velkommen']}</>;
+};
