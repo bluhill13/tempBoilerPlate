@@ -1,4 +1,4 @@
-import { env_var } from './env';
+import { env_var } from '../env';
 import { getAccessToken } from './localStorage';
 
 export interface AuthPayload {

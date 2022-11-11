@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { env_var } from './env';
+import { env_var } from '../env';
 import { removeTokens } from './localStorage';
 import { getHeaderInfo } from './tokenCreator';
 const handleResponse = (response: any) => {
