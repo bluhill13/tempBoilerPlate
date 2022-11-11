@@ -3,25 +3,28 @@ import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { LoginContainer } from '../containers/login/LoginContainer'
 import { WelcomeContainer } from '../containers/welcome/WelcomeContainer'
+import { isAuthenticated } from '../services/authenticationService'
 
 
-const PortalRoutes = (props) => {
+export const PortalRoutes = (props: any) => {
 
     console.log("PortalRoutes", props)
 
+
+    
     // TODO bruk reducer for å finne ut om du er pålogget
-    const loginState = useSelector(state => state.login)
+    //const loginState = useSelector(state => state.login)
     /*
         (auth.isAuthenticated)
             ? <Route exact path="/" component={LoginWelcome} />
             : <Route exact path="/" component={Welcome} />
     */
 
-   if (!loginState.loggedin) {
+   if (!isAuthenticated()) {
      return (
         <Fragment>
             <Routes>    
-                <Route exact path="/" element={<LoginContainer/>} />
+                <Route path="/" element={<LoginContainer/>} />
             </Routes>
         </Fragment>
      )
@@ -31,7 +34,7 @@ const PortalRoutes = (props) => {
     return (
         <Fragment>
             <Routes>    
-                <Route exact path="/" element={<WelcomeContainer/>} />
+                <Route path="/" element={<WelcomeContainer/>} />
             </Routes>
         </Fragment>
     )

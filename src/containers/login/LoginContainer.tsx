@@ -1,48 +1,51 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 import React, { useState, useMemo, useEffect } from 'react';
-import LocaleContext from '../../context/LocaleContext';
-import { useLoginContainer } from './useLoginContainer';
 import LoginForm from './components/LoginForm';
+import { useAppDispatch } from '../../redux/hooks';
+import { authenticateUser } from '../../redux/login/loginSlice';
+import { Card, Form, Input, Button, } from 'antd';
 
-export const LoginContainer: React.FC = () => {
-	const locale = React.useContext(LocaleContext);
+export function LoginContainer() {
 
-	const {
-		localeMessages,
-		showToasts,
-		loginState,
-		handleChange,
-		submitHandler,
-		hasError,
-		authError,
-		submitGlemtPassordHandler,
-		username,
-		password,
-	} = useLoginContainer(locale);
+    const dispatch = useAppDispatch();
 
-	/*
+    const onFinish = (values: any) => {
+        dispatch(authenticateUser(values));
+    };
 
-    
+    return (
+            <Card hoverable={true} title="Authentication" className="login-card">
+                <Form
+                    name="basic"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="Email"
+                        name="username"
+                        rules={[{ required: true, message: 'Please input your email!' , type: 'email'} ]}
+                    >
+                        <Input />
+                    </Form.Item>
 
-    const crState = useSelector(state => state.sakslisteHeader)
-    const dispatch = useDispatch()  
+                    <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
 
-    useEffect(() => {
-      // initialisering av komponenten 
-    }, [])
-    */
 
-	return (
-		<>
-			<LoginForm
-				handleChange={handleChange}
-				submitHandler={submitHandler}
-				hasError={hasError}
-				authError={authError}
-				submitGlemtPassordHandler={submitGlemtPassordHandler}
-				username={username}
-				password={password}
-			/>
-		</>
-	);
-};
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Card>
+    )
+}
